@@ -6,17 +6,17 @@ import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class RulesShould {
+public class RulesDecidesThat {
 
     private Rules rules;
 
     @Before
-    public void setUp() throws Exception {
+    public void createRules() {
         this.rules = new Rules();
     }
 
     @Test
-    public void a_cell_is_born() {
+    public void a_cell_is_born_on_lower_range() {
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
         CellBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
@@ -34,7 +34,7 @@ public class RulesShould {
     }
 
     @Test
-    public void a_live_cell_survives() {
+    public void a_live_cell_survives_with_two_first_tier_neighbours() {
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(0);
         CellSurvives hasSurvived = rules.survives(firstTierNeighbours, secondTierNeighbours);
