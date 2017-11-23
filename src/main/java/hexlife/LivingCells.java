@@ -2,6 +2,7 @@ package hexlife;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 class LivingCells {
     private final List<Cell> cells;
@@ -56,5 +57,11 @@ class LivingCells {
         return "LivingCells{" +
                 "cells=" + cells +
                 '}';
+    }
+
+    public Neighbours neighbours() {
+        return cells.stream().
+                map(c -> c.firstTierNeighbours()).
+                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
     }
 }

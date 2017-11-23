@@ -1,9 +1,7 @@
 package hexlife;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 class Neighbours {
@@ -19,11 +17,22 @@ class Neighbours {
         // or it is a named constructor/factory which should be ok?
     }
 
+    public static Neighbours none() {
+        return new Neighbours(Collections.emptySet());
+    }
+
     int count(Predicate<Cell> predicate) {
         return (int) cells.stream().filter(predicate).count(); // leave LoD violation, because loop is "stupid"
     }
 
-    public Neighbours merge(Neighbours other) {
-        return null;
+    public Neighbours merge(Neighbours that) {
+        HashSet<Cell> merged = new HashSet<>();
+        merged.addAll( this.cells );
+        merged.addAll( that.cells );
+        return new Neighbours(merged);
+    }
+
+    public void forEach(Consumer<Cell> consumer) {
+        cells.stream().forEach(consumer);
     }
 }
