@@ -31,7 +31,8 @@ public class RulesShould {
 
     private class Rules {
         public CellBornInEmptySpace isBornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
-            if (firstTierNeighbours.weight() + secondTierNeighbours.weight() >= 2.3) {
+            double weight = firstTierNeighbours.weight() + secondTierNeighbours.weight();
+            if (2.3 <= weight && weight <= 2.9) {
                 return new CellIsBornInEmptySpace();
             }
             return new CellIsNotBornInEmptySpace();
