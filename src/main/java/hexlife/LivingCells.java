@@ -36,4 +36,25 @@ class LivingCells {
         return cells.contains(cell);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        LivingCells that = (LivingCells) o;
+        return cells.equals(that.cells);
+    }
+
+    @Override
+    public int hashCode() {
+        return cells.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "LivingCells{" +
+                "cells=" + cells +
+                '}';
+    }
 }
