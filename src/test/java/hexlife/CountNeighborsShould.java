@@ -3,8 +3,8 @@ package hexlife;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -14,9 +14,9 @@ public class CountNeighborsShould {
     @Test
     public void find_0_first_tier_neighbours_for_any_cell() {
         Cell anyCell = getAnyCell();
-        Generation emptyGeneration = new Generation(Cells.none());
+        LivingCells livingCells = LivingCells.none();
 
-        FirstTierNeighbours firstTierNeighbours = emptyGeneration.firstTierNeighboursOf(anyCell);
+        FirstTierNeighbours firstTierNeighbours = livingCells.firstTierNeighboursOf(anyCell);
 
         assertThat(firstTierNeighbours, equalTo(new FirstTierNeighbours(0)));
     }
@@ -30,21 +30,24 @@ public class CountNeighborsShould {
         Cell aCell = new Cell('c', 3);
         Cell cell2 = new Cell('c', 2);
         Cell cell3 = new Cell('b', 2);
-        Cells seed = Cells.of(aCell, cell2, cell3);
-        Generation generation = new Generation(seed);
+        LivingCells seed = LivingCells.of(aCell, cell2, cell3);
 
-        FirstTierNeighbours firstTierNeighbours = generation.firstTierNeighboursOf(aCell);
+        FirstTierNeighbours firstTierNeighbours = seed.firstTierNeighboursOf(aCell);
 
         assertThat(firstTierNeighbours, equalTo(new FirstTierNeighbours(2)));
     }
 
-    private class Cell {
+    static class Cell {
         private final char x;
         private final int y;
 
         public Cell(char x, int y) {
             this.x = x;
             this.y = y;
+        }
+
+        public Neighbours firstTierNeighbours() {
+            return Neighbours.of(new Cell('b', 2), new Cell('c', 2));
         }
 
         @Override
@@ -66,44 +69,53 @@ public class CountNeighborsShould {
             return "Cell{" + "x=" + x + ", y=" + y + '}';
         }
 
-        public List<Cell> firstTierNeighbour() {
-            return Arrays.asList(new Cell('b', 2), new Cell('c', 2));
-        }
     }
 
-    private class Generation {
 
-        private final Cells livingCells;
-
-        public Generation(Cells seed) {
-            this.livingCells = seed;
-        }
-
-        public FirstTierNeighbours firstTierNeighboursOf(Cell cell) {
-            int count = (int) cell.firstTierNeighbour(). //
-                    stream().filter(c -> livingCells.contains(c)). //
-                    count();
-            return new FirstTierNeighbours(count);
-        }
-    }
-
-    private static class Cells {
+    static class LivingCells {
         private final List<Cell> cells;
 
-        private Cells(List<Cell> cells) {
+        private LivingCells(List<Cell> cells) {
             this.cells = cells;
         }
 
-        public static Cells of(Cell... cells) {
-            return new Cells(Arrays.asList(cells));
+        public static LivingCells of(Cell... cells) {
+            return new LivingCells(Arrays.asList(cells));
         }
 
-        public static Cells none() {
-            return Cells.of();
+        public static LivingCells none() {
+            return LivingCells.of();
         }
 
-        public boolean contains(Cell c) {
-            return cells.contains(c);
+        public FirstTierNeighbours firstTierNeighboursOf(Cell cell) {
+            int count = countLivingOf(cell.firstTierNeighbours());
+            return new FirstTierNeighbours(count);
+        }
+
+        private int countLivingOf(Neighbours neighbours) {
+            return neighbours.count(this::isLiving);
+        }
+
+        public boolean isLiving(Cell cell) {
+            return cells.contains(cell);
+        }
+
+    }
+
+    static class Neighbours {
+        private final List<Cell> cells;
+
+        private Neighbours(List<Cell> cells) {
+            this.cells = cells;
+        }
+
+        public static Neighbours of(Cell... cells) {
+            // TODO Add constraint that there must be 6 neighbours
+            return new Neighbours(Arrays.asList(cells));
+        }
+
+        int count(Predicate<Cell> predicate) {
+            return (int) cells.stream().filter(predicate).count();
         }
     }
 }
