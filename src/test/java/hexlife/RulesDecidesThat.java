@@ -17,27 +17,27 @@ public class RulesDecidesThat {
 
     @Test
     public void a_cell_is_born_on_lower_range() {
-        FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
-        SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
-        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
+        CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(2);
+        CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(1);
+        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(countOfFirstTierNeighbours, countOfSecondTierNeighbours);
 
         assertThat(isBorn, equalTo(new CellIsBornInEmptySpace()));
     }
 
     @Test
     public void a_cell_is_not_born_if_too_few_first_tier_neighbours() {
-        FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(0);
-        SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(6);
-        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
+        CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(0);
+        CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(6);
+        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(countOfFirstTierNeighbours, countOfSecondTierNeighbours);
 
         assertThat(isBorn, equalTo(new CellIsNotBornInEmptySpace()));
     }
 
     @Test
     public void a_live_cell_survives_with_two_first_tier_neighbours() {
-        FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
-        SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(0);
-        CellSurvives hasSurvived = rules.survives(firstTierNeighbours, secondTierNeighbours);
+        CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(2);
+        CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(0);
+        CellSurvives hasSurvived = rules.survives(countOfFirstTierNeighbours, countOfSecondTierNeighbours);
 
         assertThat(hasSurvived, equalTo(new CellWillSurvive()));
     }

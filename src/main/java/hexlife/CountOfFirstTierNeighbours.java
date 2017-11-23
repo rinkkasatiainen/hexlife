@@ -1,10 +1,10 @@
 package hexlife;
 
-class FirstTierNeighbours {
+class CountOfFirstTierNeighbours {
 
     private final int numberOfNeighbours;
 
-    public FirstTierNeighbours(int numberOfNeighbours) {
+    public CountOfFirstTierNeighbours(int numberOfNeighbours) {
         this.numberOfNeighbours = numberOfNeighbours;
     }
 
@@ -17,7 +17,7 @@ class FirstTierNeighbours {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        FirstTierNeighbours that = (FirstTierNeighbours) o;
+        CountOfFirstTierNeighbours that = (CountOfFirstTierNeighbours) o;
         return numberOfNeighbours == that.numberOfNeighbours;
     }
 
@@ -28,7 +28,7 @@ class FirstTierNeighbours {
 
     @Override
     public String toString() {
-        return "FirstTierNeighbours{" +
+        return "CountOfFirstTierNeighbours{" +
                 "numberOfNeighbours=" + numberOfNeighbours +
                 '}';
     }

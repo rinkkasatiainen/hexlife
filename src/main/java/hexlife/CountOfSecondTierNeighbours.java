@@ -1,10 +1,10 @@
 package hexlife;
 
-class SecondTierNeighbours {
+class CountOfSecondTierNeighbours {
 
     private final int numberOfNeighbours;
 
-    public SecondTierNeighbours(int numberOfNeighbours) {
+    public CountOfSecondTierNeighbours(int numberOfNeighbours) {
         this.numberOfNeighbours = numberOfNeighbours;
     }
 
