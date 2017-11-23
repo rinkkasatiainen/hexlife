@@ -32,7 +32,7 @@ class LivingCells {
         return neighbours.count(this::isLiving);
     }
 
-    private boolean isLiving(Cell cell) {
+    boolean isLiving(Cell cell) {
         return cells.contains(cell);
     }
 
