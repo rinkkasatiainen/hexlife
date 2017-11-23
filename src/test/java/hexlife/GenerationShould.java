@@ -53,34 +53,33 @@ public class GenerationShould {
         }
 
         public Generation tick() {
-            Neighbours neighbours = livingCells.neighbours();
-            Set<Cell> nextLivingCells = new HashSet<>();
-            neighbours.forEach((c) -> xx(c, nextLivingCells));
-
-            LivingCells livingCells = new LivingCells(nextLivingCells);
-            return new Generation(livingCells);
+            Neighbours allNeighbours = livingCells.neighbours();
+            Set<Cell> cells = new HashSet<>();
+            allNeighbours.forEach((c) -> xx(c, cells));
+            LivingCells nextLivingCells = new LivingCells(cells);
+            return new Generation(nextLivingCells);
         }
 
         private void xx(Cell cell, Set<Cell> nextLivingCells) {
-            CountOfFirstTierNeighbours a = livingCells.firstTierNeighboursOf(cell);
-            CountOfSecondTierNeighbours b = livingCells.secondTierNeighboursOf(cell);
+            CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
+            CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
 
             if (livingCells.isLiving(cell)) {
-                CellSurvives survives = rules.survives(a, b);
+                CellSurvives survives = rules.survives(first, second);
                 survives.onSurvival(cell, (c) -> nextLivingCells.add(c));
             } else {
-                CellBornInEmptySpace cellBornInEmptySpace = rules.bornInEmptySpace(a, b);
+                CellBornInEmptySpace cellBornInEmptySpace = rules.bornInEmptySpace(first, second);
                 cellBornInEmptySpace.onBirth(cell, (c) -> nextLivingCells.add(c));
             }
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (o == null || getClass() != o.getClass()) {
+        public boolean equals(Object obj) {
+            if (obj == null || getClass() != obj.getClass()) {
                 return false;
             }
 
-            Generation that = (Generation) o;
+            Generation that = (Generation) obj;
             return livingCells.equals(that.livingCells);
         }
 
