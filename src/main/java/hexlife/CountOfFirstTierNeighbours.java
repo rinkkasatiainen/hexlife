@@ -4,7 +4,7 @@ class CountOfFirstTierNeighbours {
 
     private final int numberOfNeighbours;
 
-    public CountOfFirstTierNeighbours(int numberOfNeighbours) {
+    CountOfFirstTierNeighbours(int numberOfNeighbours) {
         this.numberOfNeighbours = numberOfNeighbours;
     }
 

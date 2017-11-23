@@ -12,12 +12,13 @@ class Cell {
     public Neighbours firstTierNeighbours() {
         return Neighbours.of(
                 new Cell((char) (x - 1), y - 1),
-                new Cell(x, y - 1),
+                new Cell(        x, y - 1),
                 new Cell((char) (x + 1), y),
                 new Cell((char) (x + 1), y + 1),
-                new Cell(x, y + 1),
+                new Cell(        x, y + 1),
                 new Cell((char) (x - 1), y)
         );
+        // 6 arguments, but it needs to be 6
     }
 
     public Neighbours secondTierNeighbours() {

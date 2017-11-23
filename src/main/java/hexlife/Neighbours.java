@@ -17,7 +17,7 @@ class Neighbours {
         // or it is a named constructor/factory which should be ok?
     }
 
-    public static Neighbours none() {
+    static Neighbours none() {
         return new Neighbours(Collections.emptySet());
     }
 

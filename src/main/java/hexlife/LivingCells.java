@@ -15,10 +15,6 @@ class LivingCells {
         return new LivingCells(Arrays.asList(cells));
     }
 
-    public static LivingCells none() {
-        return LivingCells.of();
-    }
-
     public CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
         int count = countLivingOf(cell.firstTierNeighbours()); // hiding the usage of return value. is this LoD?
         return new CountOfFirstTierNeighbours(count);
@@ -37,13 +33,21 @@ class LivingCells {
         return cells.contains(cell);
     }
 
+    public Neighbours neighbours() {
+        return cells.stream(). //
+                map(c -> c.firstTierNeighbours()). //
+                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
+    }
+
+    // this class gets long. we say this is because of the Java verbose methods we need below this line
+
     @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) {
+    public boolean equals(Object obj) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
 
-        LivingCells that = (LivingCells) o;
+        LivingCells that = (LivingCells) obj;
         return cells.equals(that.cells);
     }
 
@@ -54,14 +58,6 @@ class LivingCells {
 
     @Override
     public String toString() {
-        return "LivingCells{" +
-                "cells=" + cells +
-                '}';
-    }
-
-    public Neighbours neighbours() {
-        return cells.stream().
-                map(c -> c.firstTierNeighbours()).
-                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
+        return "LivingCells{" + cells + '}';
     }
 }

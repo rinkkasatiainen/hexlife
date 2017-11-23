@@ -1,6 +1,5 @@
 package hexlife;
 
-
 import java.util.function.Consumer;
 
 class CellWillNotSurvive implements CellSurvives {
