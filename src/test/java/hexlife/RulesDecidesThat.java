@@ -19,18 +19,18 @@ public class RulesDecidesThat {
     public void a_cell_is_born_on_lower_range() {
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
-        CellBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
+        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
 
-        assertThat(isAlive, equalTo(new CellIsBornInEmptySpace()));
+        assertThat(isBorn, equalTo(new CellIsBornInEmptySpace()));
     }
 
     @Test
     public void a_cell_is_not_born_if_too_few_first_tier_neighbours() {
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(0);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(6);
-        CellBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
+        CellBornInEmptySpace isBorn = rules.bornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
 
-        assertThat(isAlive, equalTo(new CellIsNotBornInEmptySpace()));
+        assertThat(isBorn, equalTo(new CellIsNotBornInEmptySpace()));
     }
 
     @Test
@@ -43,7 +43,7 @@ public class RulesDecidesThat {
     }
 
     private class Rules {
-        public CellBornInEmptySpace isBornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
+        public CellBornInEmptySpace bornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
             double weight = firstTierNeighbours.weight() + secondTierNeighbours.weight();
             if (2.3 <= weight && weight <= 2.9) {
                 return new CellIsBornInEmptySpace();
