@@ -1,18 +1,16 @@
 package hexlife;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 class LivingCells {
-    private final List<Cell> cells;
+    private final Set<Cell> cells;
 
-    private LivingCells(List<Cell> cells) {
+    public LivingCells(Set<Cell> cells) {
         this.cells = cells;
     }
 
     public static LivingCells of(Cell... cells) {
-        return new LivingCells(Arrays.asList(cells));
+        return new LivingCells(new HashSet<>(Arrays.asList(cells)));
     }
 
     public CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
