@@ -48,15 +48,25 @@ public class CountNeighborsShould {
 
         public Neighbours firstTierNeighbours() {
             return Neighbours.of(
-                    new Cell('b', 2),
-                    new Cell('c', 2),
-                    new Cell('d', 3),
-                    new Cell('d', 4),
-                    new Cell('c', 4),
-                    new Cell('b', 3)
+                    new Cell((char) (x - 1), y - 1),
+                    new Cell(x, y - 1),
+                    new Cell((char) (x + 1), y),
+                    new Cell((char) (x + 1), y + 1),
+                    new Cell(x, y + 1),
+                    new Cell((char) (x - 1), y)
             );
         }
 
+        public Neighbours secondTierNeighbours() {
+            return Neighbours.of(
+                    new Cell((char) (x - 1), y - 2),
+                    new Cell((char) (x + 1), y - 1),
+                    new Cell((char) (x + 2), y + 2),
+                    new Cell((char) (x + 1), y + 2),
+                    new Cell((char) (x - 1), y + 1),
+                    new Cell((char) (x - 2), y - 1)
+            );
+        }
 
         @Override
         public boolean equals(Object obj) {
