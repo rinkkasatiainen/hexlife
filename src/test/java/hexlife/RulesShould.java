@@ -1,5 +1,6 @@
 package hexlife;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -7,10 +8,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class RulesShould {
 
+    private Rules rules;
+
+    @Before
+    public void setUp() throws Exception {
+        this.rules = new Rules();
+    }
+
     @Test
     public void a_cell_is_born() {
-        Rules rules = new Rules();
-
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
         CellBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
@@ -20,13 +26,20 @@ public class RulesShould {
 
     @Test
     public void a_cell_is_not_born_if_too_few_first_tier_neighbours() {
-        Rules rules = new Rules();
-
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(0);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(6);
         CellBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
 
         assertThat(isAlive, equalTo(new CellIsNotBornInEmptySpace()));
+    }
+
+    @Test
+    public void a_live_cell_survives() {
+        FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
+        SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(0);
+        CellSurvives hasSurvived = rules.survives(firstTierNeighbours, secondTierNeighbours);
+
+        assertThat(hasSurvived, equalTo(new CellWillSurvive()));
     }
 
     private class Rules {
@@ -36,6 +49,10 @@ public class RulesShould {
                 return new CellIsBornInEmptySpace();
             }
             return new CellIsNotBornInEmptySpace();
+        }
+
+        public CellSurvives survives(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
+            return new CellWillSurvive();
         }
     }
 
@@ -80,4 +97,10 @@ public class RulesShould {
         }
     }
 
+    private class CellWillSurvive implements CellSurvives {
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && getClass() == obj.getClass();
+        }
+    }
 }
