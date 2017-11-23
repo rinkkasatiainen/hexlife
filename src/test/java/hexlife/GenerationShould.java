@@ -3,7 +3,10 @@ package hexlife;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -46,24 +49,26 @@ public class GenerationShould {
             // Cell lowerRight = livingCells.lowerRightCorner();
 
 //            List<Cell> x = livingCells.neighbours();
-//            x.stream().forEach(cell ->xx(cell));
-//            return new Generation(nextLivingCells);
-
+//            List<Cell> nextLivingCells = x.stream().flatMap(this::xx).collect(Collectors.toList());
+//
+//
             return null;
         }
 //
-//        private void xx(Cell cell) {
-//            CountOfFirstTierNeighbours a = livingCells.firstTierNeighboursOf(cell);
-//            CountOfSecondTierNeighbours b = livingCells.secondTierNeighboursOf(cell);
-//
-//            if (livingCells.isLiving(cell)) {
-//                CellSurvives survives = rules.survives(a, b);
-//                survives.x(() -> nextLivingCells.add(cell));
-//            } else {
-//                CellBornInEmptySpace cellBornInEmptySpace = rules.bornInEmptySpace(a, b);
-//                cellBornInEmptySpace.x(cell, nextLivingCells);
-//            }
-//        }
+        private Stream<Cell> xx(Cell cell) {
+            List<Cell> nextLivingCells = new ArrayList<>();
+            CountOfFirstTierNeighbours a = livingCells.firstTierNeighboursOf(cell);
+            CountOfSecondTierNeighbours b = livingCells.secondTierNeighboursOf(cell);
+
+            if (livingCells.isLiving(cell)) {
+                CellSurvives survives = rules.survives(a, b);
+                survives.onSurvival(cell, (c) -> nextLivingCells.add(c));
+            } else {
+                CellBornInEmptySpace cellBornInEmptySpace = rules.bornInEmptySpace(a, b);
+                cellBornInEmptySpace.onBirth(cell, (c) -> nextLivingCells.add(c));
+            }
+            return nextLivingCells.stream();
+        }
 
         @Override
         public boolean equals(Object o) {
