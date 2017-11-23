@@ -25,4 +25,11 @@ class FirstTierNeighbours {
     public int hashCode() {
         return numberOfNeighbours;
     }
+
+    @Override
+    public String toString() {
+        return "FirstTierNeighbours{" +
+                "numberOfNeighbours=" + numberOfNeighbours +
+                '}';
+    }
 }
