@@ -4,8 +4,8 @@ import java.util.function.Consumer;
 
 class CellIsBornInEmptySpace implements CellBornInEmptySpace {
     @Override
-    public void onBirth(Cell cell, Consumer<Cell> callback) {
-        callback.accept(cell);
+    public void onBirth(Cell cell, Consumer<Cell> handler) {
+        handler.accept(cell);
     }
 
     @Override

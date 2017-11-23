@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 class CellIsNotBornInEmptySpace implements CellBornInEmptySpace {
     @Override
-    public void onBirth(Cell cell, Consumer<Cell> callback) {
+    public void onBirth(Cell cell, Consumer<Cell> handler) {
         //empty by design
     }
 
