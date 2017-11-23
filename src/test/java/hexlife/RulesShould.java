@@ -11,14 +11,26 @@ public class RulesShould {
     public void a_cell_is_born() throws Exception {
         Rules rules = new Rules();
 
-        boolean isAlive = rules.isBornInEmptySpace(2, 1);
+        FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
+        SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
+        boolean isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
 
         assertThat(isAlive, equalTo(true));
     }
 
     private class Rules {
-        public boolean isBornInEmptySpace(int firstTierNeighbours, int secondTierNeighbours) {
+        public boolean isBornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
             return true;
+        }
+    }
+
+    private class FirstTierNeighbours {
+        public FirstTierNeighbours(int numberOfNeighbours) {
+        }
+    }
+
+    private class SecondTierNeighbours {
+        public SecondTierNeighbours(int numberOfNeighbours) {
         }
     }
 }
