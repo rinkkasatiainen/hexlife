@@ -13,7 +13,6 @@ public class CountNeighborsShould {
 
     @Test
     public void find_0_first_tier_neighbours_for_any_cell() {
-
         Cell anyCell = getAnyCell();
         Generation emptyGeneration = new Generation(Collections.emptyList());
 
@@ -28,7 +27,6 @@ public class CountNeighborsShould {
 
     @Test
     public void find_first_tier_neighbours_for_a_cell_in_initial_seed() {
-
         Cell aCell = new Cell('c', 3);
         Cell cell2 = new Cell('c', 2);
         Cell cell3 = new Cell('b', 2);
@@ -36,6 +34,7 @@ public class CountNeighborsShould {
         Generation generation = new Generation(seed);
 
         FirstTierNeighbours firstTierNeighbours = generation.firstTierNeighboursOf(aCell);
+
         assertThat(firstTierNeighbours, equalTo(new FirstTierNeighbours(2)));
     }
 
@@ -77,13 +76,8 @@ public class CountNeighborsShould {
         }
 
         public FirstTierNeighbours firstTierNeighboursOf(Cell cell) {
-            int count = 0;
-            if (cells.contains(new Cell('b', 2))) {
-                count++;
-            }
-            if (cells.contains(new Cell('c', 2))) {
-                count++;
-            }
+            List<Cell> neighbours = Arrays.asList(new Cell('b', 2), new Cell('c', 2));
+            int count = (int) neighbours.stream().filter( c -> this.cells.contains(c)).count();
             return new FirstTierNeighbours(count);
         }
     }
