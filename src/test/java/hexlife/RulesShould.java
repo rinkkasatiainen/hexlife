@@ -8,19 +8,27 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class RulesShould {
 
     @Test
-    public void a_cell_is_born() throws Exception {
+    public void a_cell_is_born() {
         Rules rules = new Rules();
 
         FirstTierNeighbours firstTierNeighbours = new FirstTierNeighbours(2);
         SecondTierNeighbours secondTierNeighbours = new SecondTierNeighbours(1);
-        boolean isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
+        CellIsBornInEmptySpace isAlive = rules.isBornInEmptySpace(firstTierNeighbours, secondTierNeighbours);
 
-        assertThat(isAlive, equalTo(true));
+        assertThat(isAlive, equalTo(new CellIsBornInEmptySpace()));
     }
 
     private class Rules {
-        public boolean isBornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
-            return true;
+        public CellIsBornInEmptySpace isBornInEmptySpace(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
+            return new CellIsBornInEmptySpace();
+        }
+    }
+
+    private class CellIsBornInEmptySpace {
+
+        @Override
+        public boolean equals(Object obj) {
+            return true; // TODO see later what it is
         }
     }
 
