@@ -27,8 +27,15 @@ class LivingCells {
         return neighbours.count(this::isLiving);
     }
 
-    boolean isLiving(Cell cell) {
+    private boolean isLiving(Cell cell) {
         return cells.contains(cell);
+    }
+
+    CellRule whenLiving(Cell cell) {
+        if (cells.contains(cell)) {
+            return new LivingCellRule(cell);
+        }
+        return new DeadCellRule(cell);
     }
 
     public Neighbours neighbours() {

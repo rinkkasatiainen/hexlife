@@ -27,13 +27,8 @@ class Generation {
         CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
 
-        if (livingCells.isLiving(cell)) {
-            CellSurvives survives = rules.survives(first, second);
-            survives.onSurvival(cell, (c) -> nextLivingCells.add(c));
-        } else {
-            CellBornInEmptySpace cellBornInEmptySpace = rules.bornInEmptySpace(first, second);
-            cellBornInEmptySpace.onBirth(cell, (c) -> nextLivingCells.add(c));
-        }
+        CellRule cellRule = livingCells.whenLiving(cell);
+        cellRule.onLiving(rules, first, second, c -> nextLivingCells.add(c));
     }
 
     @Override
