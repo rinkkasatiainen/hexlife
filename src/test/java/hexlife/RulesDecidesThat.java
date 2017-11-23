@@ -87,31 +87,36 @@ public class RulesDecidesThat {
         }
     }
 
+    static boolean isSameClass(Object _this, Object obj) {
+        return obj != null && _this.getClass() == obj.getClass();
+    }
+
     private class CellIsBornInEmptySpace implements CellBornInEmptySpace {
         @Override
         public boolean equals(Object obj) {
-            return obj != null && getClass() == obj.getClass();
+            return isSameClass(this, obj);
         }
+
     }
 
     private class CellIsNotBornInEmptySpace implements CellBornInEmptySpace {
         @Override
         public boolean equals(Object obj) {
-            return obj != null && getClass() == obj.getClass();
+            return isSameClass(this, obj);
         }
     }
 
     private class CellWillSurvive implements CellSurvives {
         @Override
         public boolean equals(Object obj) {
-            return obj != null && getClass() == obj.getClass();
+            return isSameClass(this, obj);
         }
     }
 
     private class CellWillNotSurvive implements CellSurvives {
         @Override
         public boolean equals(Object obj) {
-            return obj != null && getClass() == obj.getClass();
+            return isSameClass(this, obj);
         }
     }
 }
