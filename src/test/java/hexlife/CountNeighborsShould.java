@@ -14,7 +14,7 @@ public class CountNeighborsShould {
     @Test
     public void find_0_first_tier_neighbours_for_any_cell() {
         Cell anyCell = getAnyCell();
-        Generation emptyGeneration = new Generation(Collections.emptyList());
+        Generation emptyGeneration = new Generation(Cells.none());
 
         FirstTierNeighbours firstTierNeighbours = emptyGeneration.firstTierNeighboursOf(anyCell);
 
@@ -30,7 +30,7 @@ public class CountNeighborsShould {
         Cell aCell = new Cell('c', 3);
         Cell cell2 = new Cell('c', 2);
         Cell cell3 = new Cell('b', 2);
-        List<Cell> seed = Arrays.asList(aCell, cell2, cell3);
+        Cells seed = Cells.of(aCell, cell2, cell3);
         Generation generation = new Generation(seed);
 
         FirstTierNeighbours firstTierNeighbours = generation.firstTierNeighboursOf(aCell);
@@ -65,20 +65,45 @@ public class CountNeighborsShould {
         public String toString() {
             return "Cell{" + "x=" + x + ", y=" + y + '}';
         }
+
+        public List<Cell> firstTierNeighbour() {
+            return Arrays.asList(new Cell('b', 2), new Cell('c', 2));
+        }
     }
 
     private class Generation {
 
-        private final List<Cell> cells;
+        private final Cells livingCells;
 
-        public Generation(List<Cell> seed) {
-            this.cells = seed;
+        public Generation(Cells seed) {
+            this.livingCells = seed;
         }
 
         public FirstTierNeighbours firstTierNeighboursOf(Cell cell) {
-            List<Cell> neighbours = Arrays.asList(new Cell('b', 2), new Cell('c', 2));
-            int count = (int) neighbours.stream().filter( c -> this.cells.contains(c)).count();
+            int count = (int) cell.firstTierNeighbour(). //
+                    stream().filter(c -> livingCells.contains(c)). //
+                    count();
             return new FirstTierNeighbours(count);
+        }
+    }
+
+    private static class Cells {
+        private final List<Cell> cells;
+
+        private Cells(List<Cell> cells) {
+            this.cells = cells;
+        }
+
+        public static Cells of(Cell... cells) {
+            return new Cells(Arrays.asList(cells));
+        }
+
+        public static Cells none() {
+            return Cells.of();
+        }
+
+        public boolean contains(Cell c) {
+            return cells.contains(c);
         }
     }
 }
