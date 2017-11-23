@@ -52,7 +52,11 @@ public class RulesDecidesThat {
         }
 
         public CellSurvives survives(FirstTierNeighbours firstTierNeighbours, SecondTierNeighbours secondTierNeighbours) {
-            return new CellWillSurvive();
+            double weight = firstTierNeighbours.weight() + secondTierNeighbours.weight();
+            if (2.0 <= weight && weight <= 3.3) {
+                return new CellWillSurvive();
+            }
+            return new CellWillNotSurvive();
         }
     }
 
@@ -98,6 +102,13 @@ public class RulesDecidesThat {
     }
 
     private class CellWillSurvive implements CellSurvives {
+        @Override
+        public boolean equals(Object obj) {
+            return obj != null && getClass() == obj.getClass();
+        }
+    }
+
+    private class CellWillNotSurvive implements CellSurvives {
         @Override
         public boolean equals(Object obj) {
             return obj != null && getClass() == obj.getClass();
