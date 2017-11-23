@@ -47,8 +47,16 @@ public class CountNeighborsShould {
         }
 
         public Neighbours firstTierNeighbours() {
-            return Neighbours.of(new Cell('b', 2), new Cell('c', 2));
+            return Neighbours.of(
+                    new Cell('b', 2),
+                    new Cell('c', 2),
+                    new Cell('d', 3),
+                    new Cell('d', 4),
+                    new Cell('c', 4),
+                    new Cell('b', 3)
+            );
         }
+
 
         @Override
         public boolean equals(Object obj) {
@@ -107,9 +115,8 @@ public class CountNeighborsShould {
             this.cells = cells;
         }
 
-        public static Neighbours of(Cell... cells) {
-            // TODO Add constraint that there must be 6 neighbours
-            return new Neighbours(Arrays.asList(cells));
+        public static Neighbours of(Cell c1, Cell c2, Cell c3, Cell c4, Cell c5, Cell c6) {
+            return new Neighbours(Arrays.asList(c1, c2, c3, c4, c5, c6));
             // asList is a function of [] which should be there, an extension methods
             // or it is a named constructor/factory which should be ok?
         }
