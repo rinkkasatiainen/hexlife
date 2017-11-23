@@ -68,9 +68,7 @@ public class CountNeighborsShould {
         public String toString() {
             return "Cell{" + "x=" + x + ", y=" + y + '}';
         }
-
     }
-
 
     static class LivingCells {
         private final List<Cell> cells;
@@ -88,7 +86,7 @@ public class CountNeighborsShould {
         }
 
         public FirstTierNeighbours firstTierNeighboursOf(Cell cell) {
-            int count = countLivingOf(cell.firstTierNeighbours());
+            int count = countLivingOf(cell.firstTierNeighbours()); // hiding the usage of return value. is this LoD?
             return new FirstTierNeighbours(count);
         }
 
@@ -112,10 +110,12 @@ public class CountNeighborsShould {
         public static Neighbours of(Cell... cells) {
             // TODO Add constraint that there must be 6 neighbours
             return new Neighbours(Arrays.asList(cells));
+            // asList is a function of [] which should be there, an extension methods
+            // or it is a named constructor/factory which should be ok?
         }
 
         int count(Predicate<Cell> predicate) {
-            return (int) cells.stream().filter(predicate).count();
+            return (int) cells.stream().filter(predicate).count(); // leave LoD violation, because loop is "stupid"
         }
     }
 }
