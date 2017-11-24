@@ -35,22 +35,33 @@ public class SeedShould {
     }
 
     static class Seed {
-        CollectNextLivingCells collect = new CollectNextLivingCells();
+        private final CollectNextLivingCells cells = new CollectNextLivingCells();
 
-        public Seed(String seed) {
-            if (!seed.isEmpty()) {
-                Arrays.stream(seed.split(",")). //
-                        map(s -> new Cell(s.charAt(0), Integer.parseInt(s.substring(1)))). //
-                        forEach(collect::add);
+        public static Seed from(String cellCoordinates) {
+            return new Seed(cellCoordinates);
+        }
+
+        private Seed(String cellCoordinates) {
+            if (!cellCoordinates.isEmpty()) {
+                Arrays.stream(each(cellCoordinates)). //
+                        map(this::parse). //
+                        forEach(cells::add);
             }
         }
 
-        public static Seed from(String seed) {
-            return new Seed(seed);
+        private String[] each(String cellCoordinates) {
+            return cellCoordinates.split(",");
         }
 
+        private Cell parse(String coordinate) {
+            char x = coordinate.charAt(0);
+            int y = Integer.parseInt(coordinate.substring(1));
+            return new Cell(x, y);
+        }
+
+
         public LivingCells toLivingCells() {
-            return collect.asLiving();
+            return cells.asLiving();
         }
     }
 }
