@@ -2,30 +2,38 @@ package hexlife;
 
 import java.util.function.Predicate;
 
-interface CellRule {
+abstract class CellRule {
+    protected final Cell cell;
+
+    public CellRule(Cell cell) {
+        this.cell = cell;
+    }
 
     @FunctionalInterface
     interface OnLiving {
         void accept(Cell cell);
     }
 
-    void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
+    public void decide(Predicate<Cell> isLiving, OnLiving handler) {
+        CountOfFirstTierNeighbours first = countFirstTierNeighboursOf(cell, isLiving);
+        CountOfSecondTierNeighbours second = countSecondTierNeighboursOf(cell, isLiving);
+        decide(first, second, handler);
+    }
 
-    void decide(Predicate<Cell> predicate, OnLiving handler);
-
-
-    default CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell, Predicate<Cell> isLiving) {
+    private CountOfFirstTierNeighbours countFirstTierNeighboursOf(Cell cell, Predicate<Cell> isLiving) {
         int count = countLivingOf(cell.firstTierNeighbours(), isLiving); // hiding the usage of return value. is this LoD?
         return new CountOfFirstTierNeighbours(count);
     }
 
-    default CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell, Predicate<Cell> isLiving) {
+    private CountOfSecondTierNeighbours countSecondTierNeighboursOf(Cell cell, Predicate<Cell> isLiving) {
         int count = countLivingOf(cell.secondTierNeighbours(), isLiving);
         return new CountOfSecondTierNeighbours(count);
     }
 
-    default int countLivingOf(Neighbours neighbours, Predicate<Cell> isLiving) {
+    private int countLivingOf(Neighbours neighbours, Predicate<Cell> isLiving) {
         return neighbours.count(isLiving);
     }
+
+    protected abstract void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
 
 }
