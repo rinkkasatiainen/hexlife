@@ -1,8 +1,5 @@
 package hexlife;
 
-import java.util.HashSet;
-import java.util.Set;
-
 class Generation {
     private final LivingCells livingCells;
 
@@ -16,13 +13,12 @@ class Generation {
 
     public Generation evolve() {
         Neighbours allNeighbours = livingCells.neighbours();
-        Set<Cell> nextCells = new HashSet<>(); // Different level of abstraction
-        allNeighbours.forEach(cell -> evolve(cell, nextCells));
-        LivingCells nextLivingCells = new LivingCells(nextCells);
-        return new Generation(nextLivingCells);
+        CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
+        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells));
+        return new Generation(nextLivingCells.asLiving());
     }
 
-    private void evolve(Cell cell, Set<Cell> nextLivingCells) {
+    private void evolve(Cell cell, CollectNextLivingCells nextLivingCells) {
         CellRule cellRule = livingCells.whenLiving(cell);
         CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);

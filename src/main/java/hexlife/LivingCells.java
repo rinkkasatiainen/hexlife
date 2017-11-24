@@ -6,7 +6,7 @@ class LivingCells {
     private final Set<Cell> cells;
 
     public LivingCells(Set<Cell> cells) {
-        this.cells = cells;
+        this.cells = new HashSet<>(cells); // defensive copy
     }
 
     public static LivingCells of(Cell... cells) {
