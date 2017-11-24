@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 class Generation {
-    private final Rules rules = new Rules();
     private final LivingCells livingCells;
 
     public Generation(LivingCells seed) {

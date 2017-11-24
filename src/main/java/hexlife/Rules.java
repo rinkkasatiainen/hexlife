@@ -1,5 +1,0 @@
-package hexlife;
-
-class Rules {
-
-}
