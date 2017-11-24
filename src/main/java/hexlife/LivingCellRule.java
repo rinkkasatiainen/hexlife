@@ -10,9 +10,7 @@ class LivingCellRule extends CellRule {
     public void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving survives) {
         double weight = first.weight() + second.weight();
         if (2.0 <= weight && weight <= 3.3) {
-            survives.accept(this.cell);
+            survives.accept(cell);
         }
     }
-
-
 }

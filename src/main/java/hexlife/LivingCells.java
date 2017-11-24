@@ -19,7 +19,7 @@ class LivingCells {
     }
 
     public void evolveCell(Cell cell, CellRule.OnLiving onLiving) {
-        ruleFor(cell).decide(this::isLiving, onLiving);
+        ruleFor(cell).decide(this::isLiving, onLiving); // NOPMD, LoD does not like method handles?
     }
 
     private CellRule ruleFor(Cell cell) {
@@ -30,7 +30,7 @@ class LivingCells {
     }
 
     public void forEachNeighbour(Consumer<Cell> handler) {
-        neighbours().forEach(handler);
+        neighbours().forEach(handler); // NOPMD
     }
 
     private Neighbours neighbours() {
