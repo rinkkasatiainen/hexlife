@@ -27,7 +27,7 @@ public class DeadCellRuleDecidesThat {
     public void a_cell_is_born_on_lower_range() {
         CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(2);
         CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(1);
-        rule.onLiving(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
+        rule.decide(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
 
         assertThat(lastCell, equalTo(new Cell('a', 1)));
     }
@@ -37,7 +37,7 @@ public class DeadCellRuleDecidesThat {
     public void a_cell_is_not_born_if_too_few_first_tier_neighbours() {
         CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(0);
         CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(6);
-        rule.onLiving(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
+        rule.decide(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
 
         assertThat(lastCell, nullValue());
     }

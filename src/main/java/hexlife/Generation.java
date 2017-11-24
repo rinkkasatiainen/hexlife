@@ -14,17 +14,9 @@ class Generation {
     public Generation evolve() {
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
 
-        livingCells.forEachNeighbour(cell -> evolve(cell, nextLivingCells));
+        livingCells.forEachNeighbour(cell -> livingCells.evolveCell(cell, nextLivingCells::add)); //NOPMD
 
         return new Generation(nextLivingCells.asLiving());
-    }
-
-    private void evolve(Cell cell, CollectNextLivingCells nextLivingCells) {
-        CellRule cellRule = livingCells.whenLiving(cell);
-        CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
-        CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
-
-        cellRule.onLiving(first, second, nextLivingCells::add); // TODO LoD
     }
 
     // TODO later method with side effect to display

@@ -7,6 +7,6 @@ interface CellRule {
         void accept(Cell cell);
     }
 
-    void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
+    void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
 
 }

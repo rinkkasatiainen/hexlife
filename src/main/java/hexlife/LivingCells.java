@@ -14,12 +14,12 @@ class LivingCells {
         return new LivingCells(new HashSet<>(Arrays.asList(cells)));
     }
 
-    public CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
+    /* package for test */ CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
         int count = countLivingOf(cell.firstTierNeighbours()); // hiding the usage of return value. is this LoD?
         return new CountOfFirstTierNeighbours(count);
     }
 
-    public CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell) {
+    private CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell) {
         int count = countLivingOf(cell.secondTierNeighbours());
         return new CountOfSecondTierNeighbours(count);
     }
@@ -32,7 +32,14 @@ class LivingCells {
         return cells.contains(cell);
     }
 
-    CellRule whenLiving(Cell cell) {
+    public void evolveCell(Cell cell, CellRule.OnLiving onLiving) {
+        CountOfFirstTierNeighbours first = this.firstTierNeighboursOf(cell);
+        CountOfSecondTierNeighbours second = this.secondTierNeighboursOf(cell);
+
+        ruleFor(cell).decide(first, second, onLiving);
+    }
+
+    private CellRule ruleFor(Cell cell) {
         if (isLiving(cell)) {
             return new LivingCellRule(cell);
         }
@@ -42,7 +49,7 @@ class LivingCells {
     public void forEachNeighbour(Consumer<Cell> handler) {
         neighbours().forEach(handler);
     }
-    
+
     private Neighbours neighbours() {
         return cells.stream(). // NOPMD
                 map(Cell::firstTierNeighbours). //
@@ -72,4 +79,5 @@ class LivingCells {
     public String toString() {
         return "LivingCells{" + cells + '}';
     }
+
 }

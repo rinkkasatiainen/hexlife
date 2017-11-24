@@ -8,7 +8,7 @@ class LivingCellRule implements CellRule {
     }
 
     @Override
-    public void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving survives) {
+    public void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving survives) {
         double weight = first.weight() + second.weight();
         if (2.0 <= weight && weight <= 3.3) {
             survives.accept(cell);

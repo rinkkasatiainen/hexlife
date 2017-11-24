@@ -25,7 +25,7 @@ public class LivingCellRuleDecidesThat {
     public void a_live_cell_survives_with_two_first_tier_neighbours() {
         CountOfFirstTierNeighbours countOfFirstTierNeighbours = new CountOfFirstTierNeighbours(2);
         CountOfSecondTierNeighbours countOfSecondTierNeighbours = new CountOfSecondTierNeighbours(0);
-        rule.onLiving(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
+        rule.decide(countOfFirstTierNeighbours, countOfSecondTierNeighbours, this::setLastCell);
 
         assertThat(lastCell, equalTo(new Cell('b', 2)));
     }

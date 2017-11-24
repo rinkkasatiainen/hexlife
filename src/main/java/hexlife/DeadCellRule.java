@@ -8,7 +8,7 @@ class DeadCellRule implements CellRule {
     }
 
     @Override
-    public void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving isBorn) {
+    public void decide(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving isBorn) {
         double weight = first.weight() + second.weight();
         if (2.3 <= weight && weight <= 2.9) {
             isBorn.accept(cell);
