@@ -1,5 +1,7 @@
 package hexlife;
 
+import java.util.function.Predicate;
+
 class DeadCellRule implements CellRule {
     private final Cell cell;
 
@@ -13,6 +15,11 @@ class DeadCellRule implements CellRule {
         if (2.3 <= weight && weight <= 2.9) {
             isBorn.accept(cell);
         }
+    }
+
+    @Override
+    public void decide(Predicate<Cell> isLiving, OnLiving handler) {
+        decide(firstTierNeighboursOf(cell, isLiving), secondTierNeighboursOf(cell, isLiving), handler);
     }
 
 }

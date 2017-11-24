@@ -14,29 +14,12 @@ class LivingCells {
         return new LivingCells(new HashSet<>(Arrays.asList(cells)));
     }
 
-    /* package for test */ CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
-        int count = countLivingOf(cell.firstTierNeighbours()); // hiding the usage of return value. is this LoD?
-        return new CountOfFirstTierNeighbours(count);
-    }
-
-    private CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell) {
-        int count = countLivingOf(cell.secondTierNeighbours());
-        return new CountOfSecondTierNeighbours(count);
-    }
-
-    private int countLivingOf(Neighbours neighbours) {
-        return neighbours.count(this::isLiving); // TODO LoD
-    }
-
     private boolean isLiving(Cell cell) {
         return cells.contains(cell);
     }
 
     public void evolveCell(Cell cell, CellRule.OnLiving onLiving) {
-        CountOfFirstTierNeighbours first = this.firstTierNeighboursOf(cell);
-        CountOfSecondTierNeighbours second = this.secondTierNeighboursOf(cell);
-
-        ruleFor(cell).decide(first, second, onLiving);
+        ruleFor(cell).decide(this::isLiving, onLiving);
     }
 
     private CellRule ruleFor(Cell cell) {

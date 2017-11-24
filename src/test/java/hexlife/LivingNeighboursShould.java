@@ -11,6 +11,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class LivingNeighboursShould {
 
+/*
     @Test
     public void find_0_first_tier_neighbours_for_any_cell() {
         Cell anyCell = new Cell('a', 1);
@@ -20,7 +21,9 @@ public class LivingNeighboursShould {
 
         assertThat(countOfFirstTierNeighbours, equalTo(new CountOfFirstTierNeighbours(0)));
     }
+*/
 
+/*
     @Test
     public void find_first_tier_neighbours_for_a_cell_in_initial_seed() {
         Cell aCell = new Cell('c', 3);
@@ -32,6 +35,7 @@ public class LivingNeighboursShould {
 
         assertThat(countOfFirstTierNeighbours, equalTo(new CountOfFirstTierNeighbours(2)));
     }
+*/
 
     @Test
     public void return_list_of_neighbour_cell() {
