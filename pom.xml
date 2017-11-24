@@ -28,7 +28,7 @@
                     <typeResolution>true</typeResolution>
                     <targetJdk>1.8</targetJdk>
                     <sourceEncoding>${encoding}</sourceEncoding>
-                    <includeTests>true</includeTests>
+                    <includeTests>false</includeTests>
                     <rulesets>
                         <ruleset>/rulesets/java/object-calisthenics.xml</ruleset>
                     </rulesets>
