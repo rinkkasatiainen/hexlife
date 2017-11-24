@@ -32,7 +32,7 @@ class LivingCells {
     }
 
     CellRule whenLiving(Cell cell) {
-        if (cells.contains(cell)) {
+        if (isLiving(cell)) {
             return new LivingCellRule(cell);
         }
         return new DeadCellRule(cell);

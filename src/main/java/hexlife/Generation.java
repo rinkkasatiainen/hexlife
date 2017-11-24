@@ -14,20 +14,19 @@ class Generation {
         return new Generation(seed);
     }
 
-    public Generation tick() {
+    public Generation evolve() {
         Neighbours allNeighbours = livingCells.neighbours();
-        Set<Cell> cells = new HashSet<>();
-        allNeighbours.forEach((c) -> xx(c, cells));
-        LivingCells nextLivingCells = new LivingCells(cells);
+        Set<Cell> nextCells = new HashSet<>(); // Different level of abstraction
+        allNeighbours.forEach(cell -> evolve(cell, nextCells));
+        LivingCells nextLivingCells = new LivingCells(nextCells);
         return new Generation(nextLivingCells);
     }
 
-    private void xx(Cell cell, Set<Cell> nextLivingCells) {
+    private void evolve(Cell cell, Set<Cell> nextLivingCells) {
+        CellRule cellRule = livingCells.whenLiving(cell);
         CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
-
-        CellRule cellRule = livingCells.whenLiving(cell);
-        cellRule.onLiving(first, second, c -> nextLivingCells.add(c));
+        cellRule.onLiving(first, second, nextLivingCells::add);
     }
 
     @Override

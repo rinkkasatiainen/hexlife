@@ -16,7 +16,7 @@ public class GenerationShould {
         );
         Generation generation = Generation.withSeed(seed);
 
-        Generation nextGeneration = generation.tick();
+        Generation nextGeneration = generation.evolve();
 
         LivingCells nextGenerationCells = LivingCells.of(
                 // original three
@@ -37,7 +37,7 @@ public class GenerationShould {
         LivingCells seed = LivingCells.of(new Cell('c', 2));
         Generation generation = Generation.withSeed(seed);
 
-        Generation nextGeneration = generation.tick();
+        Generation nextGeneration = generation.evolve();
 
         LivingCells nextGenerationCells = LivingCells.of();
         Generation expected = Generation.withSeed(nextGenerationCells);

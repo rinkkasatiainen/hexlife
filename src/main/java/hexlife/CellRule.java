@@ -1,8 +1,10 @@
 package hexlife;
 
-import java.util.function.Consumer;
+@FunctionalInterface
+interface OnLiving {
+    void accept(Cell cell);
+}
 
 interface CellRule {
-    // TODO: 4 parameters is waaaay to many.
-    void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, Consumer<Cell> handler);
+    void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
 }
