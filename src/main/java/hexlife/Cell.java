@@ -34,8 +34,12 @@ class Cell {
         );
     }
 
-    BoundingBox to(Cell that) {
-        return new BoundingBox(x, y, that.x, that.y);
+    public void eachRowTo(Cell bottomRight, Consumer<BoundingBox> rowHandler) {
+        boundingBox(bottomRight).eachRow(rowHandler); // NOPMD LoD false positive?
+    }
+
+    private BoundingBox boundingBox(Cell bottomRight) {
+        return new BoundingBox(x, y, bottomRight.x, bottomRight.y);
     }
 
     @Override
@@ -56,5 +60,4 @@ class Cell {
     public String toString() {
         return "[" + x + "," + y + ']';
     }
-
 }

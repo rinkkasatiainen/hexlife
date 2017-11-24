@@ -29,7 +29,7 @@ class Neighbours {
 
     public Neighbours merge(Neighbours that) {
         HashSet<Cell> merged = new HashSet<>();
-        merged.addAll(this.cells); // NOPMD false positive
+        merged.addAll(this.cells); // NOPMD LoD false positive?
         merged.addAll(that.cells);
         return new Neighbours(merged);
     }

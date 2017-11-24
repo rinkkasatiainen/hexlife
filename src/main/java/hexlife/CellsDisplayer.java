@@ -1,5 +1,7 @@
 package hexlife;
 
+import java.util.function.Consumer;
+
 public class CellsDisplayer {
     private final LivingCells livingCells;
 
@@ -8,8 +10,7 @@ public class CellsDisplayer {
     }
 
     public void display(Display display) {
-        BoundingBox areaToDisplay = livingCells.minimumCell().to(livingCells.maximumCell());
-        areaToDisplay.eachRow(row -> displayRow(row, display));
+        livingCells.onEachRow(row -> displayRow(row, display));
     }
 
     private void displayRow(BoundingBox row, Display display) {
@@ -19,9 +20,9 @@ public class CellsDisplayer {
     }
 
     private void displayCell(Cell cell, Display display) {
-        if (livingCells.isLiving(cell)) {
+        if (livingCells.isLiving(cell)) { // NOPMD because we could add return but symmetry is better here
             display.cell();
-        } else { // NOPMD because we could add return but symmetry is better here
+        } else {
             display.empty();
         }
     }

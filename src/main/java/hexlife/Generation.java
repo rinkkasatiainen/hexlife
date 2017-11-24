@@ -14,7 +14,7 @@ class Generation {
     public Generation evolve() {
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
 
-        livingCells.forEachNeighbour(cell -> livingCells.evolveCell(cell, nextLivingCells::add)); // NOPMD
+        livingCells.forEachNeighbour(cell -> livingCells.evolveCell(cell, nextLivingCells::add)); // NOPMD LoD false positive?
 
         return new Generation(nextLivingCells.asLiving());
     }

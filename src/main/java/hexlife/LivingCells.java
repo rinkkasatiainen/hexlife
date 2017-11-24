@@ -14,7 +14,7 @@ class LivingCells {
         return new LivingCells(new HashSet<>(Arrays.asList(cells)));
     }
 
-    public boolean isLiving(Cell cell) {
+    public boolean isLiving(Cell cell) { // TODO boolean query ok?
         return cells.contains(cell);
     }
 
@@ -30,7 +30,7 @@ class LivingCells {
     }
 
     public void forEachNeighbour(Consumer<Cell> handler) {
-        neighbours().forEach(handler); // NOPMD
+        neighbours().forEach(handler); // NOPMD LoD false positive?
     }
 
     private Neighbours neighbours() {
@@ -39,11 +39,15 @@ class LivingCells {
                 reduce(Neighbours.none(), Neighbours::merge);
     }
 
-    Cell minimumCell() {
+    void onEachRow(Consumer<BoundingBox> rowHandler) {
+        minimumCell().eachRowTo(maximumCell(), rowHandler); // NOPMD LoD false positive?
+    }
+
+    private Cell minimumCell() {
         return new Cell('a', 1); // TODO later cells.reduce, with Cell::min
     }
 
-    Cell maximumCell() {
+    private Cell maximumCell() {
         return new Cell('b', 2); // TODO later cells.reduce, with Cell::max
     }
 
@@ -70,5 +74,4 @@ class LivingCells {
     public String toString() {
         return "LivingCells{" + cells + '}';
     }
-
 }

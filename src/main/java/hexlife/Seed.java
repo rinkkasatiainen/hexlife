@@ -5,9 +5,9 @@ import java.util.Arrays;
 class Seed {
     private final CollectNextLivingCells cells = new CollectNextLivingCells();
 
-    public static Seed from(String cellCoordinates) {
+    public static Seed from(String cellCoordinates) { // NOPMD primitive on boundary
         return new Seed(cellCoordinates);
-    } // NOPMD boundary
+    }
 
     private Seed(String cellCoordinates) {
         if (!cellCoordinates.isEmpty()) {
