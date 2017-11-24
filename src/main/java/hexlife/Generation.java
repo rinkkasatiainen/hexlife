@@ -28,7 +28,7 @@ class Generation {
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
 
         CellRule cellRule = livingCells.whenLiving(cell);
-        cellRule.onLiving(rules, first, second, c -> nextLivingCells.add(c));
+        cellRule.onLiving(first, second, c -> nextLivingCells.add(c));
     }
 
     @Override
