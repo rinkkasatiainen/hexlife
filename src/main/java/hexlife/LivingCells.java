@@ -13,12 +13,12 @@ class LivingCells {
         return new LivingCells(new HashSet<>(Arrays.asList(cells)));
     }
 
-    CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
+    public CountOfFirstTierNeighbours firstTierNeighboursOf(Cell cell) {
         int count = countLivingOf(cell.firstTierNeighbours()); // hiding the usage of return value. is this LoD?
         return new CountOfFirstTierNeighbours(count);
     }
 
-    private CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell) {
+    public CountOfSecondTierNeighbours secondTierNeighboursOf(Cell cell) {
         int count = countLivingOf(cell.secondTierNeighbours());
         return new CountOfSecondTierNeighbours(count);
     }
@@ -31,24 +31,17 @@ class LivingCells {
         return cells.contains(cell);
     }
 
-    public Neighbours neighbours() {
-        return cells.stream(). //
-                map(c -> c.firstTierNeighbours()). //
-                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
-    }
-
-    void evolve(Cell cell, OnLiving handler) {
-        CellRule cellRule = whenLiving(cell);
-        CountOfFirstTierNeighbours first = firstTierNeighboursOf(cell);
-        CountOfSecondTierNeighbours second = secondTierNeighboursOf(cell);
-        cellRule.onLiving(first, second, handler);
-    }
-
-    private CellRule whenLiving(Cell cell) {
+    CellRule whenLiving(Cell cell) {
         if (isLiving(cell)) {
             return new LivingCellRule(cell);
         }
         return new DeadCellRule(cell);
+    }
+
+    public Neighbours neighbours() {
+        return cells.stream(). //
+                map(c -> c.firstTierNeighbours()). //
+                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
     }
 
     // this class gets long. we say this is because of the Java verbose methods we need below this line

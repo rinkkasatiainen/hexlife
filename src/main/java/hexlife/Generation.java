@@ -14,8 +14,15 @@ class Generation {
     public Generation evolve() {
         Neighbours allNeighbours = livingCells.neighbours();
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
-        allNeighbours.forEach(cell -> livingCells.evolve(cell, nextLivingCells::add));
+        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells));
         return new Generation(nextLivingCells.asLiving());
+    }
+
+    private void evolve(Cell cell, CollectNextLivingCells nextLivingCells) {
+        CellRule cellRule = livingCells.whenLiving(cell);
+        CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
+        CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
+        cellRule.onLiving(first, second, nextLivingCells::add);
     }
 
     @Override
