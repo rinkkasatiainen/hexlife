@@ -1,6 +1,7 @@
 package hexlife;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 class LivingCells {
     private final Set<Cell> cells;
@@ -38,7 +39,11 @@ class LivingCells {
         return new DeadCellRule(cell);
     }
 
-    public Neighbours neighbours() {
+    public void forEachNeighbour(Consumer<Cell> handler) {
+        neighbours().forEach(handler);
+    }
+    
+    private Neighbours neighbours() {
         return cells.stream(). // NOPMD
                 map(Cell::firstTierNeighbours). //
                 reduce(Neighbours.none(), Neighbours::merge);

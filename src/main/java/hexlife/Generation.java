@@ -12,10 +12,9 @@ class Generation {
     }
 
     public Generation evolve() {
-        Neighbours allNeighbours = livingCells.neighbours();
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
 
-        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells)); // TODO LoD
+        livingCells.forEachNeighbour(cell -> evolve(cell, nextLivingCells));
 
         return new Generation(nextLivingCells.asLiving());
     }

@@ -38,9 +38,9 @@ public class LivingNeighboursShould {
         Cell centerCell = new Cell('c', 3);
         LivingCells livingCells = LivingCells.of(centerCell);
 
-        Neighbours neighbours = livingCells.neighbours();
+        List<Cell> exposedCells = new ArrayList<>();
+        livingCells.forEachNeighbour(exposedCells::add);
 
-        List<Cell> exposedCells = collect(neighbours);
         assertThat(exposedCells, hasItems(
                 new Cell('b', 2),
                 new Cell('b', 3),
@@ -49,11 +49,5 @@ public class LivingNeighboursShould {
                 new Cell('d', 3),
                 new Cell('d', 4)
         ));
-    }
-
-    private List<Cell> collect(Neighbours neighbours) {
-        List<Cell> exposedCells = new ArrayList<>();
-        neighbours.forEach(exposedCells::add);
-        return exposedCells;
     }
 }
