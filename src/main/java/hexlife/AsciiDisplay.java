@@ -36,7 +36,7 @@ class AsciiDisplay implements Display {
         out.append('\n');
     }
 
-    public String output() {
+    public String output() { // NOPMD mapping for boundary
         return out.toString();
     }
 }

@@ -21,7 +21,7 @@ public class CellsDisplayer {
     private void displayCell(Cell cell, Display display) {
         if (livingCells.isLiving(cell)) {
             display.cell();
-        } else {
+        } else { // NOPMD because we could add return but symmetry is better here
             display.empty();
         }
     }
