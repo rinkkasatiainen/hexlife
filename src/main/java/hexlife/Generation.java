@@ -3,7 +3,7 @@ package hexlife;
 class Generation {
     private final LivingCells livingCells;
 
-    public Generation(LivingCells seed) {
+    private Generation(LivingCells seed) {
         this.livingCells = seed;
     }
 
@@ -14,7 +14,9 @@ class Generation {
     public Generation evolve() {
         Neighbours allNeighbours = livingCells.neighbours();
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
-        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells));
+
+        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells)); // ? LoD
+
         return new Generation(nextLivingCells.asLiving());
     }
 
@@ -22,8 +24,13 @@ class Generation {
         CellRule cellRule = livingCells.whenLiving(cell);
         CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
-        cellRule.onLiving(first, second, nextLivingCells::add);
+
+        cellRule.onLiving(first, second, nextLivingCells::add); // ? LoD
     }
+
+    // TODO later method with side effect to display
+
+    // only for test
 
     @Override
     public boolean equals(Object obj) {

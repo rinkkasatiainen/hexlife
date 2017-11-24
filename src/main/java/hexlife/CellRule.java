@@ -1,10 +1,12 @@
 package hexlife;
 
-@FunctionalInterface
-interface OnLiving {
-    void accept(Cell cell);
-}
-
 interface CellRule {
+
+    @FunctionalInterface
+    interface OnLiving {
+        void accept(Cell cell);
+    }
+
     void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, OnLiving handler);
+
 }

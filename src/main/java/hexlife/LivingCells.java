@@ -24,7 +24,7 @@ class LivingCells {
     }
 
     private int countLivingOf(Neighbours neighbours) {
-        return neighbours.count(this::isLiving);
+        return neighbours.count(this::isLiving); // ? LoD
     }
 
     private boolean isLiving(Cell cell) {
@@ -40,11 +40,13 @@ class LivingCells {
 
     public Neighbours neighbours() {
         return cells.stream(). //
-                map(c -> c.firstTierNeighbours()). //
+                map(cell -> cell.firstTierNeighbours()). //
                 reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
     }
 
     // this class gets long. we say this is because of the Java verbose methods we need below this line
+
+    // only for tests again
 
     @Override
     public boolean equals(Object obj) {
