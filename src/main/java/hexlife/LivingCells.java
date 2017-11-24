@@ -39,25 +39,32 @@ class LivingCells {
                 reduce(Neighbours.none(), Neighbours::merge);
     }
 
-    public void displayOn(Display display) {
-        for (char x = 'a'; x <= 'b'; x++) {
-            if (x % 2 == 1) {
-                display.nextColumn();
-            }
-            // 1st or 3rd column? extra blank
-            for (char y = 1; y <= 2; y++) {
-                // for line each cell print _ or * and blank
-                if (isLiving(new Cell(x, y))) {
-                    display.cell();
-                } else {
-                    display.empty();
-                }
-                if (y != 2 || x % 2 == 0) {
-                    display.nextColumn();
-                }
-            }
-            display.nextRow();
+    public void display(Display display) {
+        BoundingBox areaToDisplay = minimumCell().to(maximumCell());
+        areaToDisplay.eachRow(row -> displayRow(row, display));
+    }
+
+    private void displayRow(BoundingBox row, Display display) {
+        display.startRow();
+        row.eachColumn(cell -> displayCell(cell, display));
+        display.nextRow();
+    }
+
+    private Cell minimumCell() {
+        return new Cell('a', 1);
+    }
+
+    private Cell maximumCell() {
+        return new Cell('b', 2);
+    }
+
+    private void displayCell(Cell cell, Display display) {
+        if (isLiving(cell)) {
+            display.cell();
+        } else {
+            display.empty();
         }
+        display.nextColumn();
     }
 
     // this class gets long. we say this is because of the Java verbose methods we need below this line

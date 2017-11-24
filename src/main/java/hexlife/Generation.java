@@ -20,7 +20,7 @@ class Generation {
     }
 
     public void displayOn(Display display) {
-        livingCells.displayOn(display);
+        livingCells.display(display);
     }
 
     // only for test

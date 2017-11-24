@@ -1,5 +1,7 @@
 package hexlife;
 
+import java.util.function.Consumer;
+
 class Cell {
     private final char x;
     private final int y;
@@ -12,10 +14,10 @@ class Cell {
     public Neighbours firstTierNeighbours() {
         return Neighbours.of(
                 new Cell((char) (x - 1), y - 1),
-                new Cell(        x, y - 1),
+                new Cell(x, y - 1),
                 new Cell((char) (x + 1), y),
                 new Cell((char) (x + 1), y + 1),
-                new Cell(        x, y + 1),
+                new Cell(x, y + 1),
                 new Cell((char) (x - 1), y)
         );
         // 6 arguments, but it needs to be 6
@@ -30,6 +32,10 @@ class Cell {
                 new Cell((char) (x - 1), y + 1),
                 new Cell((char) (x - 2), y - 1)
         );
+    }
+
+    BoundingBox to(Cell that) {
+        return new BoundingBox(x, y, that.x, that.y);
     }
 
     @Override
@@ -50,4 +56,5 @@ class Cell {
     public String toString() {
         return "[" + x + "," + y + ']';
     }
+
 }

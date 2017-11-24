@@ -8,4 +8,6 @@ interface Display {
     void empty();
 
     void nextRow();
+
+    void startRow();
 }

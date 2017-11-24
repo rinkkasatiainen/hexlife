@@ -14,11 +14,20 @@ public class DisplayShould {
 
         generation.displayOn(display);
 
-        assertThat(display.output(), equalTo(" * *\n_ * \n") );
+        assertThat(display.output(), equalTo(" * *\n_ * \n"));
     }
 
     private class AsciiDisplay implements Display {
         StringBuilder out = new StringBuilder();
+        int rows;
+
+        @Override
+        public void startRow() {
+            rows++;
+            if (rows % 2 == 1) {
+                nextColumn();
+            }
+        }
 
         @Override
         public void nextColumn() {
@@ -37,6 +46,9 @@ public class DisplayShould {
 
         @Override
         public void nextRow() {
+            if (rows % 2 == 1) {
+                out.setLength(out.length() - 1);
+            }
             out.append('\n');
         }
 
