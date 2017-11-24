@@ -51,11 +51,11 @@ class LivingCells {
     }
 
     private Cell minimumCell() {
-        return new Cell('a', 1);
+        return new Cell('a', 1); // TODO later cells.reduce, with Cell::min
     }
 
     private Cell maximumCell() {
-        return new Cell('b', 2);
+        return new Cell('b', 2); // TODO later cells.reduce, with Cell::max
     }
 
     private void displayCell(Cell cell, Display display) {
@@ -64,7 +64,6 @@ class LivingCells {
         } else {
             display.empty();
         }
-        display.nextColumn();
     }
 
     // this class gets long. we say this is because of the Java verbose methods we need below this line

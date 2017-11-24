@@ -17,43 +17,4 @@ public class DisplayShould {
         assertThat(display.output(), equalTo(" * *\n_ * \n"));
     }
 
-    private class AsciiDisplay implements Display {
-        StringBuilder out = new StringBuilder();
-        int rows;
-
-        @Override
-        public void startRow() {
-            rows++;
-            if (rows % 2 == 1) {
-                nextColumn();
-            }
-        }
-
-        @Override
-        public void nextColumn() {
-            out.append(' ');
-        }
-
-        @Override
-        public void cell() {
-            out.append('*');
-        }
-
-        @Override
-        public void empty() {
-            out.append('_');
-        }
-
-        @Override
-        public void nextRow() {
-            if (rows % 2 == 1) {
-                out.setLength(out.length() - 1);
-            }
-            out.append('\n');
-        }
-
-        public String output() {
-            return out.toString();
-        }
-    }
 }

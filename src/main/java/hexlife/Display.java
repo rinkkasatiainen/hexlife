@@ -1,13 +1,11 @@
 package hexlife;
 
 interface Display {
-    void nextColumn();
+    void startRow();
 
     void cell();
 
     void empty();
 
     void nextRow();
-
-    void startRow();
 }

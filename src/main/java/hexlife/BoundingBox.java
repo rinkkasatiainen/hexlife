@@ -9,7 +9,7 @@ public class BoundingBox {
     private final char bottom;
     private final int right;
 
-    public BoundingBox(char top, int left, char bottom, int right) {
+    BoundingBox(char top, int left, char bottom, int right) {
         this.top = top;
         this.left = left;
         this.bottom = bottom;
