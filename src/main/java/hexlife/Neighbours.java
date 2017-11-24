@@ -33,6 +33,6 @@ class Neighbours {
     }
 
     public void forEach(Consumer<Cell> consumer) {
-        cells.stream().forEach(consumer);
+        cells.forEach(consumer);
     }
 }

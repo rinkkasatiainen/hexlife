@@ -40,8 +40,8 @@ class LivingCells {
 
     public Neighbours neighbours() {
         return cells.stream(). //
-                map(cell -> cell.firstTierNeighbours()). //
-                reduce(Neighbours.none(), (n1, n2) -> n1.merge(n2));
+                map(Cell::firstTierNeighbours). //
+                reduce(Neighbours.none(), Neighbours::merge);
     }
 
     // this class gets long. we say this is because of the Java verbose methods we need below this line

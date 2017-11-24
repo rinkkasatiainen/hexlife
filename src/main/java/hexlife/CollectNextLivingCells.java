@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 // only place which is mutable, all else is immutable
-public class CollectNextLivingCells {
+class CollectNextLivingCells {
     private final Set<Cell> cells = new HashSet<>();
 
     public void add(Cell cell) {
