@@ -15,7 +15,7 @@ class Generation {
         Neighbours allNeighbours = livingCells.neighbours();
         CollectNextLivingCells nextLivingCells = new CollectNextLivingCells();
 
-        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells)); // ? LoD
+        allNeighbours.forEach(cell -> evolve(cell, nextLivingCells)); // TODO LoD
 
         return new Generation(nextLivingCells.asLiving());
     }
@@ -25,7 +25,7 @@ class Generation {
         CountOfFirstTierNeighbours first = livingCells.firstTierNeighboursOf(cell);
         CountOfSecondTierNeighbours second = livingCells.secondTierNeighboursOf(cell);
 
-        cellRule.onLiving(first, second, nextLivingCells::add); // ? LoD
+        cellRule.onLiving(first, second, nextLivingCells::add); // TODO LoD
     }
 
     // TODO later method with side effect to display

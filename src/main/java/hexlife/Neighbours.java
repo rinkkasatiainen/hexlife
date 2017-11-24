@@ -22,13 +22,15 @@ class Neighbours {
     }
 
     int count(Predicate<Cell> predicate) {
-        return (int) cells.stream().filter(predicate).count(); // leave LoD violation, because loop is "stupid"
+        return (int) cells.stream(). // NOPMD
+                filter(predicate). //
+                count(); // leave LoD violation, because loop is "stupid"
     }
 
     public Neighbours merge(Neighbours that) {
         HashSet<Cell> merged = new HashSet<>();
-        merged.addAll( this.cells );
-        merged.addAll( that.cells );
+        merged.addAll(this.cells); // NOPMD false positive
+        merged.addAll(that.cells);
         return new Neighbours(merged);
     }
 
