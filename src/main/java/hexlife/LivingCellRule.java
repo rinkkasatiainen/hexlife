@@ -11,16 +11,10 @@ class LivingCellRule implements CellRule {
 
     @Override
     public void onLiving(CountOfFirstTierNeighbours first, CountOfSecondTierNeighbours second, Consumer<Cell> handler) {
-        CellSurvives survives = survives(first, second);
-        survives.onSurvival(cell, handler);
-    }
-
-    private CellSurvives survives(CountOfFirstTierNeighbours countOfFirstTierNeighbours, CountOfSecondTierNeighbours countOfSecondTierNeighbours) {
-        double weight = countOfFirstTierNeighbours.weight() + countOfSecondTierNeighbours.weight();
+        double weight = first.weight() + second.weight();
         if (2.0 <= weight && weight <= 3.3) {
-            return new CellWillSurvive();
+            handler.accept(cell);
         }
-        return new CellWillNotSurvive();
     }
 
 }
