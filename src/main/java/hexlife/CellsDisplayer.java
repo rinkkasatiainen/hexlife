@@ -1,7 +1,5 @@
 package hexlife;
 
-import java.util.function.Consumer;
-
 public class CellsDisplayer {
     private final LivingCells livingCells;
 
