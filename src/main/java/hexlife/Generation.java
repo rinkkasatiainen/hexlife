@@ -19,7 +19,9 @@ class Generation {
         return new Generation(nextLivingCells.asLiving());
     }
 
-    // TODO later method with side effect to display
+    public void displayOn(Display display) {
+        livingCells.displayOn(display);
+    }
 
     // only for test
 
@@ -43,4 +45,5 @@ class Generation {
     public String toString() {
         return "Generation{" + livingCells + '}';
     }
+
 }
