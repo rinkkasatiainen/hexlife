@@ -1,1 +1,1 @@
-call mvnw pmd:check
+call mvn pmd:check
